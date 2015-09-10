@@ -2,8 +2,8 @@ import chai from 'chai';
 import sorts from '../sorts';
 import timer from './helpers/timer';
 
-const TEST_NUM = 100; // the number of times to generate tests
-const TEST_SIZE = 10000; // the size of the test arrays
+const TEST_NUM = 1; // the number of times to generate tests
+const TEST_SIZE = 14; // the size of the test arrays
 
 let should = chai.should();
 
