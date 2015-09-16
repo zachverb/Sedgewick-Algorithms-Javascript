@@ -4,6 +4,9 @@ export default class Sort {
   }
 
   sort(array) {
+    if(this.isSorted(array)) {
+      return array;
+    }
     return array.sort((a, b) => a - b);
   }
 

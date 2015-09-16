@@ -2,8 +2,8 @@ import chai from 'chai';
 import sorts from '../sorts';
 import timer from './helpers/timer';
 
-const TEST_NUM = 1; // the number of times to generate tests
-const TEST_SIZE = 14; // the size of the test arrays
+const TEST_NUM = 100; // the number of times to generate tests
+const TEST_SIZE = 1000; // the size of the test arrays
 
 let should = chai.should();
 
@@ -60,7 +60,8 @@ describe('Sorts', function() {
           times = {
             name,
             random: null,
-            presorted: null
+            presorted: null,
+            reverse: null
           }
         });
 
@@ -84,7 +85,7 @@ describe('Sorts', function() {
           for(let i = 0; i < TEST_NUM; i++) {
             let preSorted = [];
             for (let j = 0, t = TEST_SIZE; j < t; j++) {
-              preSorted.push(i);
+              preSorted.push(j);
             }
             let { result, time } = timer(Sort, 'sort', preSorted);
             Sort.isSorted(result).should.be.true;
@@ -92,6 +93,21 @@ describe('Sorts', function() {
           }
 
           times.presorted = total / TEST_NUM;
+        });
+
+        it('should reverse a backwards sorted array', function() {
+          let total = 0;
+          for(let i = 0; i < TEST_NUM; i++) {
+            let reverse = [];
+            for (let j = TEST_SIZE, t = 0; j > t; j--) {
+              reverse.push(j);
+            }
+            let { result, time } = timer(Sort, 'sort', reverse);
+            Sort.isSorted(result).should.be.true;
+            total += time;
+          }
+
+          times.reverse = total / TEST_NUM;
         });
 
         after(function() {
@@ -104,5 +120,6 @@ describe('Sorts', function() {
   after(function() {
     sortAndPrint(sortTimes, 'random');
     sortAndPrint(sortTimes, 'presorted');
+    sortAndPrint(sortTimes, 'reverse');
   });
 });

@@ -8,6 +8,9 @@ export default class Shell extends Sort {
 
   // h-sorted array - every hth entry yields a sorted subsequence
   sort(array) {
+    if(this.isSorted(array)) {
+      return array;
+    }
     let length = array.length;
     let h = 1;
     while (h < Math.round(length / 3)) {

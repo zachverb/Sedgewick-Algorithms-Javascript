@@ -4,7 +4,7 @@
   "description": "Sedgewick's Algorithms in ES6",
   "main": "sorts.js",
   "scripts": {
-    "test": "mocha --compilers js:babel/register spec"
+    "test": "mocha --compilers js:babel/register spec -w ."
   },
   "author": "",
   "license": "ISC",

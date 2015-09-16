@@ -7,6 +7,9 @@ export default class Selection extends Sort {
   }
 
   sort(array) {
+    if(this.isSorted(array)) {
+      return array;
+    }
     for(let i = 0; i < array.length; i++) {
       let minIndex = i;
       for(let j = i; j < array.length; j++) {
