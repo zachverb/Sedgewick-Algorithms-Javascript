@@ -1,24 +1,18 @@
 import chai from 'chai';
 import sorts from '../sorts';
 import timer from './helpers/timer';
-
-const TEST_NUM = 100; // the number of times to generate tests
-const TEST_SIZE = 1000; // the size of the test arrays
+import { TEST_NUM, TEST_SIZE } from './helpers/const';
 
 let should = chai.should();
 
 let sortTimes = [];
 
-let randomTimeSorter = (a, b) => {
-  return a.random - b.random;
-}
-
-let presortedTimeSorter = (a, b) => {
-  return a.presorted - b.presorted;
+let copy = (array) => {
+  return array.slice(0);
 }
 
 let sortAndPrint = (array, property) => {
-  let arrayCopy = array.slice(0);
+  let arrayCopy = copy(array);
 
   arrayCopy.sort((a, b) => {
     return a[property] - b[property];
@@ -30,8 +24,32 @@ let sortAndPrint = (array, property) => {
   });
 }
 
+let generateUnsorted = () => {
+  let unsortedArrays = [];
+  for(let i = 0; i < TEST_NUM; i++) {
+    let unsorted = [];
+    for (let i = 0, t = TEST_SIZE; i < t; i++) {
+      unsorted.push(Math.round(Math.random() * t))
+    }
+    unsortedArrays[i] = unsorted;
+  }
+  return unsortedArrays;
+}
+
 // Tests all sort methods so I only have to write tests once.
 describe('Sorts', function() {
+  let unsortedArrays, presortedArray, reverseArray;
+
+  before(function() {
+    unsortedArrays = generateUnsorted();
+    presortedArray = [];
+    reverseArray = [];
+    for (let j = 0, t = TEST_SIZE; j < t; j++) {
+      presortedArray.push(j);
+      reverseArray.push(TEST_SIZE - j)
+    }
+  });
+
   sorts.forEach(sort => { 
     let Sort = new sort();
     let name = Sort.name;
@@ -68,10 +86,7 @@ describe('Sorts', function() {
         it('should sort an unsorted array', function() {
           let total = 0;
           for(let i = 0; i < TEST_NUM; i++) {
-            let unsorted = [];
-            for (let i = 0, t = TEST_SIZE; i < t; i++) {
-              unsorted.push(Math.round(Math.random() * t))
-            }
+            let unsorted = copy(unsortedArrays[i]);
             let { result, time } = timer(Sort, 'sort', unsorted);
             Sort.isSorted(result).should.be.true
             total += time;
@@ -83,25 +98,18 @@ describe('Sorts', function() {
         it('should keep a preSorted array sorted', function() {
           let total = 0;
           for(let i = 0; i < TEST_NUM; i++) {
-            let preSorted = [];
-            for (let j = 0, t = TEST_SIZE; j < t; j++) {
-              preSorted.push(j);
-            }
-            let { result, time } = timer(Sort, 'sort', preSorted);
+            let presorted = copy(presortedArray);
+            let { result, time } = timer(Sort, 'sort', presorted);
             Sort.isSorted(result).should.be.true;
             total += time;
           }
-
           times.presorted = total / TEST_NUM;
         });
 
         it('should reverse a backwards sorted array', function() {
           let total = 0;
           for(let i = 0; i < TEST_NUM; i++) {
-            let reverse = [];
-            for (let j = TEST_SIZE, t = 0; j > t; j--) {
-              reverse.push(j);
-            }
+            let reverse = copy(reverseArray);
             let { result, time } = timer(Sort, 'sort', reverse);
             Sort.isSorted(result).should.be.true;
             total += time;
