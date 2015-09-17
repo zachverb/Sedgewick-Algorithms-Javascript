@@ -12,9 +12,7 @@ export default class Merge extends Sort {
       return array;
     }
     this.aux = [];
-
     this.sortHelper(array, 0, array.length - 1);
-
     return array;
   }
 
@@ -25,7 +23,6 @@ export default class Merge extends Sort {
     for (let k = low; k <= high; k++) {
       aux[k] = array[k];
     }
-
     for (let k = low; k <= high; k++) {
       if (i > mid) {
         array[k] = aux[j++];
@@ -44,9 +41,7 @@ export default class Merge extends Sort {
     if(high <= low) {
       return;
     }
-
     let mid = low + Math.floor((high - low) / 2);
-
     this.sortHelper(array, low, mid);
     this.sortHelper(array, mid + 1, high);
     this.merge(array, low, mid, high);

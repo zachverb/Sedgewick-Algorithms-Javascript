@@ -9,9 +9,9 @@ export let sortAndPrint = (array, property) => {
     return a[property] - b[property];
   });
 
-  console.log(property + " ranks: ")
+  console.log(`\n\t${property} ranks: `);
   arrayCopy.forEach((val, index) =>{
-    console.log(++index + ': ' + val.name, "averaging", val[property] * 1e-6, "ms");
+    console.log(`\t  ${++index}: ${val.name} averaging ${val[property] * 1e-6} ms`);
   });
 }
 
@@ -21,7 +21,7 @@ export let generateUnsorted = (arrayNum, arraySize) => {
   for(let i = 0; i < arrayNum; i++) {
     let unsorted = [];
     for (let i = 0, t = arraySize; i < t; i++) {
-      unsorted.push(Math.round(Math.random() * t))
+      unsorted.push(Math.round(Math.random() * t));
     }
     unsortedArrays[i] = unsorted;
   }
