@@ -1,8 +1,7 @@
 import chai from 'chai';
-import { All as sorts } from '../sorts';
-import timer from './helpers/timer';
-import { TEST_NUM, TEST_SIZE } from './helpers/const';
-import { copy, sortAndPrint, generateUnsorted, generateShuffled } from './helpers/util';
+import timer from '../helpers/timer';
+import { TEST_NUM, TEST_SIZE, SORTS } from '../helpers/const';
+import { copy, sortAndPrint, generateUnsorted, generateShuffled } from '../helpers/util';
 
 let should = chai.should();
 
@@ -12,7 +11,7 @@ describe('isSorted function', function() {
   let Sort;
 
   before(function() {
-    Sort = new sorts[0]();
+    Sort = new SORTS[0]();
   });
 
   it('should return false for an unsorted array', function() {
@@ -47,13 +46,12 @@ describe('Sorts', function() {
     console.log('\tDone!\n')
   });
 
-  sorts.forEach(sort => { 
+  SORTS.forEach(sort => { 
     let Sort = new sort();
     let name = Sort.name;
 
     describe(name, function() {
       
-
       describe('sort function', function() {
         let times;
 
