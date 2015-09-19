@@ -6,7 +6,6 @@ Please don't comment asking about why I did these in javascript - I want to expa
 
 ## Tests
 
-Run the command ```npm test``` in order to see the results of the times of each of the algorithms. For the sorts, the tests will run 100 times with size 1000 arrays. If you want change these values, you can update the values TEST_NUM and TEST_SIZE respectively within /spec/helpers/const.js
+Run the command ```npm test``` in order to see the results of the times of each of the algorithms. For the sorts, the tests will run 100 times with size 1000 arrays. If you want change these values, you can update the values TEST_NUM and TEST_SIZE respectively within /helpers/const.js
 
-In general, the larger you set these consts, the longer the elementary sorts will take. Generally, if you get above 1000, you should only include the linearithmic sorts. In order to do this, go into /spec/sort-spec.js and alter the second line from ```import { All as sorts } from '../sorts';
-``` to ```import { Linearithmic as sorts } from '../sorts';```
+When your TEST_SIZE exceeds 1000, the Elementary sorts generally slow down more than you would want (unless you like waiting more than a minute for your times to complete). Because of this, I would suggest only including the Linearithmic sorts in your tests. To do this, go back into the const file and update the first line from ```import { All as sorts } from '../sorts';``` to ```import { Linearithmic as sorts } from '../sorts';```
