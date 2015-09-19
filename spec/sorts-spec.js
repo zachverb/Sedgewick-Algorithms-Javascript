@@ -65,30 +65,6 @@ describe('Sorts', function() {
           }
         });
 
-        it('should sort unsorted arrays', function() {
-          let total = 0;
-          for(let i = 0; i < TEST_NUM; i++) {
-            let unsorted = copy(unsortedArrays[i]);
-            let { result, time } = timer(Sort, 'sort', unsorted);
-            Sort.isSorted(result).should.be.true
-            total += time;
-          }
-
-          times.random = total / TEST_NUM;
-        });
-
-        it('should sort shuffled arrays', function() {
-          let total = 0;
-          for(let i = 0; i < TEST_NUM; i++) {
-            let shuffled = copy(shuffledArrays[i]);
-            let { result, time } = timer(Sort, 'sort', shuffled);
-            Sort.isSorted(result).should.be.true
-            total += time;
-          }
-
-          times.shuffled = total / TEST_NUM;
-        });
-
         it('should keep a preSorted array sorted', function() {
           let total = 0;
           for(let i = 0; i < TEST_NUM; i++) {
@@ -112,6 +88,30 @@ describe('Sorts', function() {
           times.reverse = total / TEST_NUM;
         });
 
+        it('should sort random arrays', function() {
+          let total = 0;
+          for(let i = 0; i < TEST_NUM; i++) {
+            let unsorted = copy(unsortedArrays[i]);
+            let { result, time } = timer(Sort, 'sort', unsorted);
+            Sort.isSorted(result).should.be.true
+            total += time;
+          }
+
+          times.random = total / TEST_NUM;
+        });
+
+        it('should sort shuffled arrays', function() {
+          let total = 0;
+          for(let i = 0; i < TEST_NUM; i++) {
+            let shuffled = copy(shuffledArrays[i]);
+            let { result, time } = timer(Sort, 'sort', shuffled);
+            Sort.isSorted(result).should.be.true
+            total += time;
+          }
+
+          times.shuffled = total / TEST_NUM;
+        });
+
         after(function() {
           sortTimes.push(times);
         });
@@ -120,9 +120,9 @@ describe('Sorts', function() {
   });
 
   after(function() {
-    sortAndPrint(sortTimes, 'random');
     sortAndPrint(sortTimes, 'presorted');
     sortAndPrint(sortTimes, 'reverse');
+    sortAndPrint(sortTimes, 'random');
     sortAndPrint(sortTimes, 'shuffled');
   });
 });
